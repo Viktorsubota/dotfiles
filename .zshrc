@@ -111,6 +111,9 @@ alias ls="eza --icons=never" # Eza (better ls)
 # Custom
 export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 [[ $commands[kubectl] ]] && autoload -U +X compinit && compinit && source <(kubectl completion zsh)
+
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 GOPROXY='https://proxy.golang.org,direct'
 GOROOT='/usr/local/go'
 GOSUMDB='sum.golang.org'
