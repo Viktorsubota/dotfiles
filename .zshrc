@@ -58,7 +58,7 @@ zinit cdreplay -q
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Keybindings
-bindkey -e
+bindkey -e # Emacs mode
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
@@ -78,6 +78,10 @@ setopt hist_find_no_dups
 
 export FZF_CTRL_R_OPTS="--reverse"
 export FZF_TMUX_OPTS="-p"
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
+--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
+--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -107,6 +111,9 @@ alias ls="eza --icons=never" # Eza (better ls)
 # Custom
 export KUBE_EDITOR="/opt/homebrew/bin/nvim"
 [[ $commands[kubectl] ]] && autoload -U +X compinit && compinit && source <(kubectl completion zsh)
+
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 GOPROXY='https://proxy.golang.org,direct'
 GOROOT='/usr/local/go'
 GOSUMDB='sum.golang.org'
