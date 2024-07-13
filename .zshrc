@@ -106,7 +106,7 @@ alias k="kubectl"
 alias vim="nvim"
 
 # alias cd="zoxide" # Zoxide (better cd)
-alias ls="eza --icons=never" # Eza (better ls)
+alias ls="eza --icons=auto" # Eza (better ls)
 
 # Custom
 export KUBE_EDITOR="/opt/homebrew/bin/nvim"
@@ -123,6 +123,3 @@ alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
