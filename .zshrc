@@ -105,8 +105,8 @@ alias vim='nvim'
 alias k="kubectl"
 alias vim="nvim"
 
-# alias cd="zoxide" # Zoxide (better cd)
-alias ls="eza --icons=auto" # Eza (better ls)
+alias cd="zoxide" # Zoxide (better cd)
+alias ls="eza --icons=auto --group-directories-first" # Eza (better ls)
 
 # Custom
 export KUBE_EDITOR="/opt/homebrew/bin/nvim"
