@@ -1,3 +1,6 @@
+# Disable dotenv confirmation
+ZSH_DOTENV_PROMPT=false
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -105,11 +108,10 @@ alias vim='nvim'
 alias k="kubectl"
 alias vim="nvim"
 
-alias cd="zoxide" # Zoxide (better cd)
 alias ls="eza --icons=auto --group-directories-first" # Eza (better ls)
 
 # Custom
-export KUBE_EDITOR="/opt/homebrew/bin/nvim"
+export KUBE_EDITOR="nvim"
 [[ $commands[kubectl] ]] && autoload -U +X compinit && compinit && source <(kubectl completion zsh)
 
 export GOPATH=$HOME/go
