@@ -65,6 +65,9 @@ bindkey -e # Emacs mode
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
+# Ctrl + f - to apply a suggestion word-by-word.
+# Ctrl + e - to apply it to the end of line.
+bindkey '^f' forward-word
 
 # History
 HISTSIZE=10000
