@@ -20,6 +20,6 @@ size = 14
 
 [general]
 import = [
-    "~/.config/alacritty/themes/catppuccin-latte.toml",
+    # "~/.config/alacritty/themes/catppuccin-latte.toml",
     "~/.config/alacritty/themes/catppuccin-macchiato.toml",
 ]

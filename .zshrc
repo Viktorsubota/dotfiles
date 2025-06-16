@@ -82,12 +82,34 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+
+is_dark() {
+  (defaults read -g AppleInterfaceStyle 2>/dev/null)
+}
+
+export TEST_VAR=
+
 export FZF_CTRL_R_OPTS="--reverse"
 export FZF_TMUX_OPTS="-p"
-export FZF_DEFAULT_OPTS=" -m \
---color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
---color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
+# export FZF_DEFAULT_OPTS_FILE="$HOME/.fzf.config"
+
+# Light colors
+# export FZF_DEFAULT_OPTS=" \
+# --multi \
+# --color=bg+:#CCD0DA,bg:#EFF1F5,spinner:#DC8A78,hl:#D20F39 \
+# --color=fg:#4C4F69,header:#D20F39,info:#8839EF,pointer:#DC8A78 \
+# --color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39 \
+# --color=selected-bg:#BCC0CC \
+# --color=border:#CCD0DA,label:#4C4F69"
+#
+# Dark colors
+export FZF_DEFAULT_OPTS=" \
+--multi \
+--color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
+--color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
+--color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
+--color=selected-bg:#494D64 \
+--color=border:#363A4F,label:#CAD3F5"
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -110,6 +132,7 @@ alias ls='ls --color'
 alias vim='nvim'
 alias k="kubectl"
 alias vim="nvim"
+alias v="nvim"
 
 alias ls="eza --icons=auto --group-directories-first" # Eza (better ls)
 
@@ -132,3 +155,6 @@ eval "$(pyenv init -)"
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+
+# Treat these characters part of words for word operations
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'

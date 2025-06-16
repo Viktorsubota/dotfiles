@@ -47,8 +47,15 @@ brew "wget"
 brew "yq"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# UNIX shell (command interpreter)
+# A newer version of zsh
 brew "zsh"
+# A newer version of bash
+brew "bash"
+
+# ------------------------
+# Cask packages
+# ------------------------
+
 # GPU-accelerated terminal emulator
 cask "alacritty"
 # Enable Windows-like alt-tab
