@@ -86,30 +86,34 @@ setopt hist_find_no_dups
 
 
 is_dark() {
-  defaults read -g AppleInterfaceStyle &>/dev/null
+  # defaults read -g AppleInterfaceStyle &>/dev/null
+  return 1
 }
 
 export FZF_CTRL_R_OPTS="--reverse"
 export FZF_TMUX_OPTS="-p"
-export FZF_DEFAULT_OPTS_FILE="$HOME/.fzf.config"
 
-if is_dark; then
-  export FZF_DEFAULT_OPTS=" \
+_update_fzf_theme() {
+  if is_dark; then
+    export FZF_DEFAULT_OPTS=" \
 --multi \
 --color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
 --color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
 --color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
 --color=selected-bg:#494D64 \
 --color=border:#363A4F,label:#CAD3F5"
-else
-  export FZF_DEFAULT_OPTS=" \
+  else
+    export FZF_DEFAULT_OPTS=" \
 --multi \
 --color=bg+:#CCD0DA,bg:#EFF1F5,spinner:#DC8A78,hl:#D20F39 \
 --color=fg:#4C4F69,header:#D20F39,info:#8839EF,pointer:#DC8A78 \
 --color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39 \
 --color=selected-bg:#BCC0CC \
 --color=border:#CCD0DA,label:#4C4F69"
-fi
+  fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _update_fzf_theme
 
 # Shell integrations
 eval "$(fzf --zsh)"
