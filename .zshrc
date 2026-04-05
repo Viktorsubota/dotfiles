@@ -46,7 +46,9 @@ zinit light zsh-users/zsh-history-substring-search
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::aws
+zinit ice wait lucid
 zinit snippet OMZP::kubectl
+zinit ice wait lucid
 zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 
@@ -70,7 +72,7 @@ bindkey '^[w' kill-region
 bindkey '^f' forward-word
 
 # History
-HISTSIZE=10000
+HISTSIZE=500000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
@@ -84,32 +86,30 @@ setopt hist_find_no_dups
 
 
 is_dark() {
-  (defaults read -g AppleInterfaceStyle 2>/dev/null)
+  defaults read -g AppleInterfaceStyle &>/dev/null
 }
-
-export TEST_VAR=
 
 export FZF_CTRL_R_OPTS="--reverse"
 export FZF_TMUX_OPTS="-p"
-# export FZF_DEFAULT_OPTS_FILE="$HOME/.fzf.config"
+export FZF_DEFAULT_OPTS_FILE="$HOME/.fzf.config"
 
-# Light colors
-# export FZF_DEFAULT_OPTS=" \
-# --multi \
-# --color=bg+:#CCD0DA,bg:#EFF1F5,spinner:#DC8A78,hl:#D20F39 \
-# --color=fg:#4C4F69,header:#D20F39,info:#8839EF,pointer:#DC8A78 \
-# --color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39 \
-# --color=selected-bg:#BCC0CC \
-# --color=border:#CCD0DA,label:#4C4F69"
-#
-# Dark colors
-export FZF_DEFAULT_OPTS=" \
+if is_dark; then
+  export FZF_DEFAULT_OPTS=" \
 --multi \
 --color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
 --color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
 --color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
 --color=selected-bg:#494D64 \
 --color=border:#363A4F,label:#CAD3F5"
+else
+  export FZF_DEFAULT_OPTS=" \
+--multi \
+--color=bg+:#CCD0DA,bg:#EFF1F5,spinner:#DC8A78,hl:#D20F39 \
+--color=fg:#4C4F69,header:#D20F39,info:#8839EF,pointer:#DC8A78 \
+--color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39 \
+--color=selected-bg:#BCC0CC \
+--color=border:#CCD0DA,label:#4C4F69"
+fi
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -128,23 +128,20 @@ zstyle ':fzf-tab:*' popup-min-size 70 8
 zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
 
 # Aliases
-alias ls='ls --color'
-alias vim='nvim'
 alias k="kubectl"
 alias vim="nvim"
 alias v="nvim"
-
-alias ls="eza --icons=auto --group-directories-first" # Eza (better ls)
+alias ls="eza --icons=auto --group-directories-first"
 
 # Custom
 export KUBE_EDITOR="nvim"
-[[ $commands[kubectl] ]] && autoload -U +X compinit && compinit && source <(kubectl completion zsh)
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-GOPROXY='https://proxy.golang.org,direct'
-GOROOT='/usr/local/go'
-GOSUMDB='sum.golang.org'
+export GOPROXY='https://proxy.golang.org,direct'
+export GOROOT='/usr/local/go'
+export GOSUMDB='sum.golang.org'
 
 alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 
@@ -158,3 +155,7 @@ bindkey "^X^E" edit-command-line
 
 # Treat these characters part of words for word operations
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
