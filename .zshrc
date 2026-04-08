@@ -86,8 +86,7 @@ setopt hist_find_no_dups
 
 
 is_dark() {
-  # defaults read -g AppleInterfaceStyle &>/dev/null
-  return 1
+  defaults read -g AppleInterfaceStyle &>/dev/null
 }
 
 export FZF_CTRL_R_OPTS="--reverse"
@@ -117,7 +116,6 @@ add-zsh-hook precmd _update_fzf_theme
 
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -136,6 +134,7 @@ alias k="kubectl"
 alias vim="nvim"
 alias v="nvim"
 alias ls="eza --icons=auto --group-directories-first"
+alias c="claude"
 
 # Custom
 export KUBE_EDITOR="nvim"
@@ -163,3 +162,6 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# Must be last — zoxide hooks into cd
+eval "$(zoxide init --cmd cd zsh)"
