@@ -52,6 +52,9 @@ brew "zsh"
 # A newer version of bash
 brew "bash"
 
+# only PNG works without it
+brew "imagemagick"
+
 # ------------------------
 # Cask packages
 # ------------------------
