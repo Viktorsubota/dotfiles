@@ -46,7 +46,9 @@ zinit light zsh-users/zsh-history-substring-search
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::aws
+zinit ice wait lucid
 zinit snippet OMZP::kubectl
+zinit ice wait lucid
 zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 
@@ -65,9 +67,12 @@ bindkey -e # Emacs mode
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
+# Ctrl + f - to apply a suggestion word-by-word.
+# Ctrl + e - to apply it to the end of line.
+bindkey '^f' forward-word
 
 # History
-HISTSIZE=10000
+HISTSIZE=500000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
@@ -79,16 +84,38 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+
+is_dark() {
+  defaults read -g AppleInterfaceStyle &>/dev/null
+}
+
 export FZF_CTRL_R_OPTS="--reverse"
 export FZF_TMUX_OPTS="-p"
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
---color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
---color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
+
+_update_fzf_theme() {
+  if is_dark; then
+    export FZF_DEFAULT_OPTS=" \
+--multi \
+--color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
+--color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
+--color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
+--color=selected-bg:#494D64 \
+--color=border:#363A4F,label:#CAD3F5"
+  else
+    export FZF_DEFAULT_OPTS=" \
+--multi \
+--color=bg+:#CCD0DA,bg:#EFF1F5,spinner:#DC8A78,hl:#D20F39 \
+--color=fg:#4C4F69,header:#D20F39,info:#8839EF,pointer:#DC8A78 \
+--color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39 \
+--color=selected-bg:#BCC0CC \
+--color=border:#CCD0DA,label:#4C4F69"
+  fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _update_fzf_theme
 
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -103,25 +130,38 @@ zstyle ':fzf-tab:*' popup-min-size 70 8
 zstyle ':fzf-tab:complete:diff:*' popup-min-size 80 12
 
 # Aliases
-alias ls='ls --color'
-alias vim='nvim'
 alias k="kubectl"
 alias vim="nvim"
-
-alias ls="eza --icons=auto --group-directories-first" # Eza (better ls)
+alias v="nvim"
+alias ls="eza --icons=auto --group-directories-first"
+alias c="claude"
 
 # Custom
 export KUBE_EDITOR="nvim"
-[[ $commands[kubectl] ]] && autoload -U +X compinit && compinit && source <(kubectl completion zsh)
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-GOPROXY='https://proxy.golang.org,direct'
-GOROOT='/usr/local/go'
-GOSUMDB='sum.golang.org'
+export GOPROXY='https://proxy.golang.org,direct'
+export GOROOT='/usr/local/go'
+export GOSUMDB='sum.golang.org'
 
 alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+# Treat these characters part of words for word operations
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# Must be last — zoxide hooks into cd
+eval "$(zoxide init --cmd cd zsh)"
