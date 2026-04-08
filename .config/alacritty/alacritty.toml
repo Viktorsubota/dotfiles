@@ -18,8 +18,20 @@ normal.family = "JetBrainsMonoNL Nerd Font"
 
 size = 14
 
+[font.offset]
+x = 0 # Adjust if glyphs are too wide/narrow
+y = 0
+
+[debug]
+renderer = "Glsl3" # Use if you have strange artifacts [7]
+
 [general]
 import = [
     # "~/.config/alacritty/themes/catppuccin-latte.toml",
     "~/.config/alacritty/themes/catppuccin-macchiato.toml",
 ]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
