@@ -94,13 +94,22 @@ export FZF_TMUX_OPTS="-p"
 
 _update_fzf_theme() {
   if is_dark; then
+    # Catppuccin Frappe
     export FZF_DEFAULT_OPTS=" \
 --multi \
---color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
---color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
---color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
---color=selected-bg:#494D64 \
---color=border:#363A4F,label:#CAD3F5"
+--color=bg+:#414559,bg:#303446,spinner:#F2D5CF,hl:#E78284 \
+--color=fg:#C6D0F5,header:#E78284,info:#CA9EE6,pointer:#F2D5CF \
+--color=marker:#BABBF1,fg+:#C6D0F5,prompt:#CA9EE6,hl+:#E78284 \
+--color=selected-bg:#51576D \
+--color=border:#414559,label:#C6D0F5"
+    # Catppuccin Macchiato (unused)
+    # export FZF_DEFAULT_OPTS=" \
+    # --multi \
+    # --color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
+    # --color=fg:#CAD3F5,header:#ED8796,info:#C6A0F6,pointer:#F4DBD6 \
+    # --color=marker:#B7BDF8,fg+:#CAD3F5,prompt:#C6A0F6,hl+:#ED8796 \
+    # --color=selected-bg:#494D64 \
+    # --color=border:#363A4F,label:#CAD3F5"
   else
     export FZF_DEFAULT_OPTS=" \
 --multi \
