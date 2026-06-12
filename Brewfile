@@ -1,4 +1,3 @@
-tap "homebrew/bundle"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # GNU internationalization (i18n) and localization (l10n) library
@@ -29,6 +28,8 @@ brew "moreutils"
 brew "neovim"
 # Platform built on V8 to build network applications
 brew "node"
+# Manage multiple Node.js versions
+brew "nvm"
 # Python version management
 brew "pyenv"
 # Search tool like grep and The Silver Searcher
@@ -69,6 +70,8 @@ cask "battery"
 cask "betterdisplay"
 # Web browser
 cask "firefox"
+# GPU-accelerated terminal emulator (primary terminal)
+cask "ghostty"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
 # Desktop automation application
