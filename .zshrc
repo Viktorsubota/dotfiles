@@ -174,4 +174,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # Must be last — zoxide hooks into cd
+# Silence zoxide's doctor inside AI CLI tools (their shell snapshots drop chpwd_functions).
+[[ -n $CLAUDECODE || -n $OPENCODE || -n $GEMINI_CLI ]] && export _ZO_DOCTOR=0
 eval "$(zoxide init --cmd cd zsh)"
