@@ -52,7 +52,7 @@ zinit ice wait lucid
 zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 
-zi snippet OMZP::dotenv
+zinit snippet OMZP::dotenv
 
 # Load completions
 autoload -Uz compinit && compinit
@@ -64,8 +64,8 @@ zinit cdreplay -q
 
 # Keybindings
 bindkey -e # Emacs mode
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+bindkey '^p' history-substring-search-up
+bindkey '^n' history-substring-search-down
 bindkey '^[w' kill-region
 # Ctrl + f - to apply a suggestion word-by-word.
 # Ctrl + e - to apply it to the end of line.
@@ -75,7 +75,6 @@ bindkey '^f' forward-word
 HISTSIZE=500000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
-HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -155,11 +154,13 @@ export GOPROXY='https://proxy.golang.org,direct'
 export GOROOT='/usr/local/go'
 export GOSUMDB='sum.golang.org'
 
-alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if command -v pyenv >/dev/null; then
+  # Keep pyenv shims out of brew's PATH so `brew doctor` stays quiet
+  alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
 
 autoload -z edit-command-line
 zle -N edit-command-line
