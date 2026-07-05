@@ -1,8 +1,13 @@
+#!/bin/bash
 # Sourced by the tmux picker scripts — sets fzf colors from the macOS appearance.
 # (fzf-tmux forwards FZF_DEFAULT_OPTS into the popup, so exporting here is enough.)
 
 is_dark() {
-  defaults read -g AppleInterfaceStyle &>/dev/null
+  if [ -f "$HOME/.cache/tmux_theme" ]; then
+    [ "$(cat "$HOME/.cache/tmux_theme")" = "dark" ]
+  else
+    defaults read -g AppleInterfaceStyle >/dev/null 2>&1
+  fi
 }
 
 if is_dark; then
@@ -22,3 +27,5 @@ else
 --color=selected-bg:#BCC0CC \
 --color=border:#CCD0DA,label:#4C4F69"
 fi
+
+tmux setenv -g FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS"
