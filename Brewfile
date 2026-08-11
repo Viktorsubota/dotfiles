@@ -32,6 +32,8 @@ brew "node"
 brew "nvm"
 # Python version management
 brew "pyenv"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Organize software neatly under a single directory tree (e.g. /usr/local)

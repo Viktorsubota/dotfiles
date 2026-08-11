@@ -195,11 +195,8 @@ if [[ $commands[kubectl] ]]; then
   }
 fi
 
-export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-export GOPROXY='https://proxy.golang.org,direct'
-export GOROOT='/usr/local/go'
-export GOSUMDB='sum.golang.org'
+# Go defaults GOPATH to ~/go (brew-managed go, no GOROOT/GOPROXY overrides needed)
+export PATH=$PATH:$HOME/go/bin
 
 if command -v pyenv >/dev/null; then
   # Keep pyenv shims out of brew's PATH so `brew doctor` stays quiet
