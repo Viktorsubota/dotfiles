@@ -54,7 +54,7 @@ zinit snippet OMZP::command-not-found
 
 zinit snippet OMZP::dotenv
 
-# Load completions (cached for fast shell startup)
+# Load completions (cached for fast startup)
 autoload -Uz compinit
 if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(N.m-1) ]]; then
   compinit -C
@@ -89,7 +89,7 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 
-# Check for dark mode via a fast file cache updated by tmux, falling back to defaults read
+# Dark mode check: tmux cache file, falls back to macOS defaults
 is_dark() {
   if [[ -f ~/.cache/tmux_theme ]]; then
     [[ "$(< ~/.cache/tmux_theme)" == "dark" ]]
@@ -97,7 +97,7 @@ is_dark() {
     defaults read -g AppleInterfaceStyle &>/dev/null
   fi
 }
-# Initialize the theme file cache once at shell startup if missing
+# Seed the theme cache if missing
 if [[ ! -f ~/.cache/tmux_theme ]]; then
   mkdir -p ~/.cache
   if defaults read -g AppleInterfaceStyle &>/dev/null; then
@@ -145,7 +145,7 @@ _update_fzf_theme
 # Shell integrations
 eval "$(fzf --zsh)"
 
-# Update theme dynamically on fzf widget invocations
+# Re-apply theme colors when fzf widgets run
 for widget in fzf-history-widget fzf-file-widget fzf-cd-widget; do
   if (( ${+functions[$widget]} )); then
     orig_func="_${widget//-/_}_orig"
@@ -195,7 +195,7 @@ if [[ $commands[kubectl] ]]; then
   }
 fi
 
-# Go defaults GOPATH to ~/go (brew-managed go, no GOROOT/GOPROXY overrides needed)
+# Go is brew-managed; defaults are fine (GOPATH=~/go, no GOROOT/GOPROXY overrides)
 export PATH=$PATH:$HOME/go/bin
 
 if command -v pyenv >/dev/null; then
