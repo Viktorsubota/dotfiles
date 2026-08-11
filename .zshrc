@@ -54,8 +54,13 @@ zinit snippet OMZP::command-not-found
 
 zinit snippet OMZP::dotenv
 
-# Load completions
-autoload -Uz compinit && compinit
+# Load completions (cached for fast startup)
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(N.m-1) ]]; then
+  compinit -C
+else
+  compinit
+fi
 
 zinit cdreplay -q
 
@@ -84,9 +89,23 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 
+# Dark mode check: tmux cache file, falls back to macOS defaults
 is_dark() {
-  defaults read -g AppleInterfaceStyle &>/dev/null
+  if [[ -f ~/.cache/tmux_theme ]]; then
+    [[ "$(< ~/.cache/tmux_theme)" == "dark" ]]
+  else
+    defaults read -g AppleInterfaceStyle &>/dev/null
+  fi
 }
+# Seed the theme cache if missing
+if [[ ! -f ~/.cache/tmux_theme ]]; then
+  mkdir -p ~/.cache
+  if defaults read -g AppleInterfaceStyle &>/dev/null; then
+    echo "dark" > ~/.cache/tmux_theme
+  else
+    echo "light" > ~/.cache/tmux_theme
+  fi
+fi
 
 export FZF_CTRL_R_OPTS="--reverse"
 export FZF_TMUX_OPTS="-p"
@@ -121,9 +140,24 @@ _update_fzf_theme() {
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _update_fzf_theme
+_update_fzf_theme
 
 # Shell integrations
 eval "$(fzf --zsh)"
+
+# Re-apply theme colors when fzf widgets run
+for widget in fzf-history-widget fzf-file-widget fzf-cd-widget; do
+  if (( ${+functions[$widget]} )); then
+    orig_func="_${widget//-/_}_orig"
+    eval "
+      functions[$orig_func]=\$functions[$widget]
+      $widget() {
+        _update_fzf_theme
+        $orig_func \"\$@\"
+      }
+    "
+  fi
+done
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -146,20 +180,45 @@ alias c="claude"
 
 # Custom
 export KUBE_EDITOR="nvim"
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+if [[ $commands[kubectl] ]]; then
+  # Lazy-load kubectl completion to avoid running slow kubectl subprocess on startup
+  compdef _kubectl kubectl
+  _kubectl() {
+    unset -f _kubectl
+    local KUBECTL_COMP_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/kubectl_completion"
+    if [[ ! -f "$KUBECTL_COMP_FILE" ]]; then
+      mkdir -p "$(dirname "$KUBECTL_COMP_FILE")"
+      kubectl completion zsh > "$KUBECTL_COMP_FILE"
+    fi
+    source "$KUBECTL_COMP_FILE"
+    _kubectl "$@"
+  }
+fi
 
-export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-export GOPROXY='https://proxy.golang.org,direct'
-export GOROOT='/usr/local/go'
-export GOSUMDB='sum.golang.org'
+# Go is brew-managed; defaults are fine (GOPATH=~/go, no GOROOT/GOPROXY overrides)
+export PATH=$PATH:$HOME/go/bin
 
 if command -v pyenv >/dev/null; then
   # Keep pyenv shims out of brew's PATH so `brew doctor` stays quiet
   alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
   export PYENV_ROOT="$HOME/.pyenv"
   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
+
+  # Fast native zsh initialization (replaces eval "$(pyenv init -)" to avoid bash subshell)
+  export PATH="$PYENV_ROOT/shims:${PATH}"
+  export PYENV_SHELL=zsh
+  pyenv() {
+    local command=${1:-}
+    [ "$#" -gt 0 ] && shift
+    case "$command" in
+    rehash|shell)
+      eval "$(pyenv "sh-$command" "$@")"
+      ;;
+    *)
+      command pyenv "$command" "$@"
+      ;;
+    esac
+  }
 fi
 
 autoload -z edit-command-line
@@ -170,8 +229,20 @@ bindkey "^X^E" edit-command-line
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+if [ -s "/opt/homebrew/opt/nvm/nvm.sh" ]; then
+  # Lazy-load NVM on first execution of node/npm/npx etc. to save ~0.8s on shell startup
+  declare -a __nvm_commands=(nvm node npm npx yarn pnpm)
+  function __load_nvm() {
+    unalias $__nvm_commands
+    unset -f __load_nvm
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+    "$@"
+  }
+  for cmd in $__nvm_commands; do
+    alias $cmd="__load_nvm $cmd"
+  done
+fi
 
 # Must be last — zoxide hooks into cd
 # Silence zoxide's doctor inside AI CLI tools (their shell snapshots drop chpwd_functions).
