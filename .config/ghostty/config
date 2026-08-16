@@ -1,5 +1,5 @@
 font-size = 14
-font-family = JetBrains Mono
+font-family = JetBrainsMono Nerd Font
 font-thicken = true
 
 font-feature = -calt
@@ -11,7 +11,7 @@ selection-background = 51576d
 
 window-padding-x = 0
 window-padding-y = 0
-window-padding-balance = true
+window-padding-balance = false
 window-padding-color = extend
 
 window-colorspace = display-p3
@@ -20,3 +20,7 @@ keybind = shift+enter=text:\x1b\r
 
 theme = light:catppuccin-latte,dark:catppuccin-frappe
 # theme = light:catppuccin-latte,dark:catppuccin-macchiato
+
+bell-features = audio,attention,title
+bell-audio-path = bell.aiff
+bell-audio-volume = 0.6
