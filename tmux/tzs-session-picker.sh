@@ -81,7 +81,7 @@ handle_find='if [[ ! $FZF_PROMPT =~ '"$prompt_find"' ]]; then
   echo "clear-query+enable-search+toggle-sort+change-prompt('"$prompt_find"' > )+reload(zoxide query --list)+change-preview(ls --color=always -Cp \{1})"
 fi'
 
-handle_window='load_windows="clear-query+enable-search+change-prompt('"$prompt_windows"' > )+reload('"$list_windows"')+change-preview(tmux capture-pane -ep -t \{1})"
+handle_window='load_windows="clear-query+enable-search+change-prompt('"$prompt_windows"' > )+reload('"$list_windows"')+change-preview(tmux capture-pane -ep -t \{1} | tail -n $FZF_PREVIEW_LINES)"
 if [[ $FZF_PROMPT =~ '"$prompt_find"' ]]; then
   echo "toggle-sort+$load_windows"
 elif [[ ! $FZF_PROMPT =~ '"$prompt_windows"' ]]; then
@@ -100,8 +100,8 @@ elif [[ $FZF_PROMPT =~ '"$prompt_windows"' ]]; then
   echo "clear-query+change-prompt('"$prompt_rename_window"' > )+change-preview(echo "New window name: \{q}")+reload(echo {})+disable-search"
 fi'
 
-handle_accept='load_sessions="clear-query+enable-search+change-prompt('"$prompt_sessions"' > )+change-preview(tmux capture-pane -ep -t \{1})+reload('"$list_sessions"')"
-load_windows="clear-query+enable-search+change-prompt('"$prompt_windows"' > )+change-preview(tmux capture-pane -ep -t \{1})+reload('"$list_windows"')"
+handle_accept='load_sessions="clear-query+enable-search+change-prompt('"$prompt_sessions"' > )+change-preview(tmux capture-pane -ep -t \{1} | tail -n $FZF_PREVIEW_LINES)+reload('"$list_sessions"')"
+load_windows="clear-query+enable-search+change-prompt('"$prompt_windows"' > )+change-preview(tmux capture-pane -ep -t \{1} | tail -n $FZF_PREVIEW_LINES)+reload('"$list_windows"')"
 
 if [[ $FZF_PROMPT =~ '"$prompt_sessions"' ]]; then
   echo "replace-query+print-query"
@@ -128,11 +128,11 @@ elif [[ $FZF_PROMPT =~ "'"$prompt_rename_window"'" ]]; then
 fi'
 
 handle_new='if [[ $FZF_PROMPT =~ '"$prompt_sessions"' ]]; then
-  echo "execute-silent(tmux new-session -ds "{q}")+print-query"
+  echo "execute-silent(tmux new-session -ds "{q}" -c "#{pane_current_path}")+print-query"
 fi'
 
-handle_quit='load_sessions="clear-query+enable-search+change-prompt('"$prompt_sessions"' > )+reload('"$list_sessions"')+change-preview(tmux capture-pane -ep -t \{1})"
-load_windows="clear-query+enable-search+change-prompt('"$prompt_windows"' > )+change-preview(tmux capture-pane -ep -t \{1})+reload('"$list_windows"')"
+handle_quit='load_sessions="clear-query+enable-search+change-prompt('"$prompt_sessions"' > )+reload('"$list_sessions"')+change-preview(tmux capture-pane -ep -t \{1} | tail -n $FZF_PREVIEW_LINES)"
+load_windows="clear-query+enable-search+change-prompt('"$prompt_windows"' > )+change-preview(tmux capture-pane -ep -t \{1} | tail -n $FZF_PREVIEW_LINES)+reload('"$list_windows"')"
 
 if [[ $FZF_PROMPT =~ '"$prompt_find"' ]]; then
   echo "toggle-sort+$load_sessions"
@@ -156,7 +156,7 @@ launch() {
 		--border bold \
 		--header="$header" \
 		--prompt="$prompt_sessions > " \
-		--preview="tmux capture-pane -ep -t {1}" \
+		--preview="tmux capture-pane -ep -t {1} | tail -n $FZF_PREVIEW_LINES" \
 		--border-label " Current: $(tmux display-message -p '#S') " \
 		--bind 'focus:transform-preview-label:echo [ {1} ]' \
 		--bind "$key_window:transform:$handle_window" \
