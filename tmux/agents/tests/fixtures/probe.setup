@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Deterministic screens for the probe: an empty capture fails toward
+# keeping red, so both panes get explicit content and are waited on by
+# that exact text. %0 stays marker-free (its red must clear), %2 carries
+# a dialog marker (its red must survive).
+set -u
+. "$(dirname "${BASH_SOURCE[0]}")/_helpers.sh"
+
+stage_screen %0 "echo PROBE_PANE_READY_NO_MARKERS" 'PROBE_PANE_READY_NO_MARKERS' || exit 1
+stage_screen %2 "echo 'Do you want to proceed?'" 'Do you want to proceed'

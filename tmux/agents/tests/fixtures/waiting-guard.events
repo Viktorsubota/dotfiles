@@ -1,0 +1,10 @@
+# idle-waiting escalates only a quiet agent, and tells the unseen story:
+# yellow, band 2, tallied as unseen. running is never overridden; urgent
+# reddens an idle-wait like every other event
+v1	-100	turn.work	%0	zsh
+v1	-30	ask.input	%0	zsh
+v1	-200	agent.launch	%1	zsh
+v1	-25	ask.input	%1	zsh
+v1	-300	agent.launch	%2	zsh
+v1	-20	ask.input	%2	zsh
+v1	-15	user.urgent	%2	zsh

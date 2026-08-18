@@ -1,0 +1,5 @@
+# agy's own interactive multiple-choice question fires no hook at all
+# (a real onboarding "Question 1/1: ..." menu, captured live) — only the
+# silence probe can catch it, matched via the reusable nav-hint chrome
+v1	-40	turn.work	%0	agy
+v1	0	tick	-	system

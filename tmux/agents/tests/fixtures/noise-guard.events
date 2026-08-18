@@ -1,0 +1,8 @@
+# an ask trailing a stop by <=2s is hook noise and must not repaint;
+# one trailing by more is a real prompt and overrides unseen
+v1	-100	turn.work	%0	zsh
+v1	-50	turn.end	%0	zsh
+v1	-49	ask.permission	%0	zsh
+v1	-40	turn.work	%1	zsh
+v1	-20	turn.end	%1	zsh
+v1	-10	ask.permission	%1	zsh

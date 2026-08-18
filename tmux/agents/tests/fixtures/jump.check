@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# jump ordering over the replayed states, no client switch. Raw second
+# ages drift by run latency — normalize them; band order and the humanized
+# crumb stay exact.
+set -u
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+"$DIR/agents-jump.sh" --dry | sed -E 's/\|[0-9]+\|/|AGE|/'

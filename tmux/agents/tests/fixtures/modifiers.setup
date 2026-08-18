@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# seed the three modifiers directly — toggles reach the bus in chunk 4
+set -u
+tmux set -p -t %0 @agent_urgent 1
+tmux set -p -t %1 @agent_mute 1
+tmux set -p -t %2 @agent_disabled 1

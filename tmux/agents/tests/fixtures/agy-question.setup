@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# The real agy question-menu screen, as captured live. The text is read
+# from a file rather than echoed inline: the shell redisplays the command
+# it ran, so an inline printf would put the pattern on the command line
+# too, and the captured message would flip with render timing (prompt
+# glyph present or not). `cat <file>` keeps the marker out of the command.
+set -u
+. "$(dirname "${BASH_SOURCE[0]}")/_helpers.sh"
+
+q="${XDG_STATE_HOME:?}/agy-question.txt"
+# kept to a few lines on purpose: a short pane scrolls the top away and
+# the first pattern match — hence the captured message — would change
+stage_file "$q" <<'EOF'
+Question 1/1: What would you like to work on today?
+> 1. (Recommended) Work on my dotfiles
+  Navigate  Select  Skip
+EOF
+
+stage_screen %0 "cat '$q'" 'Navigate  Select  Skip'

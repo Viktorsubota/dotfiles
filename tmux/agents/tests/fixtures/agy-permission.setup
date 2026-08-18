@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# agy's approval dialog exactly as it renders live — a plain '>' caret and
+# its own wording, none of which the question-menu patterns cover. Read
+# from a file so the marker never lands on the shell's redisplayed
+# command line, and kept short so nothing scrolls out of a small pane.
+set -u
+. "$(dirname "${BASH_SOURCE[0]}")/_helpers.sh"
+
+d="${XDG_STATE_HOME:?}/agy-permission.txt"
+stage_file "$d" <<'EOF'
+Requesting permission for:
+   git status
+Do you want to proceed?
+> 1. Yes
+EOF
+
+stage_screen %0 "cat '$d'" '^Requesting permission for'

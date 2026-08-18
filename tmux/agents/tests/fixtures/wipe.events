@@ -1,0 +1,5 @@
+# the master switch going off wipes every trace — including transitions
+# batched earlier in the same drain
+v1	-100	turn.work	%0	zsh
+v1	-50	turn.work	%1	zsh
+v1	-10	settings.changed	-	system

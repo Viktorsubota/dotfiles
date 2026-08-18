@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# lock the render contract: column order, sort order, labels, closeness.
+# Colors stripped; second-tier ages drift with suite runtime — normalize
+# them, minute-tier ages are stable.
+set -u
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+"$DIR/agents-render.sh" --rows | sed -e 's/\x1b\[[0-9;]*m//g' -e 's/[0-9][0-9]*s /AGE /g'

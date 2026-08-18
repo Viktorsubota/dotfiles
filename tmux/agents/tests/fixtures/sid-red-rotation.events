@@ -1,0 +1,7 @@
+# A pane blocked on a permission prompt is not running a tool, so no nested
+# instance can exist and the pin has nothing to protect. A session id that
+# rotated while the pane sat red must still be adopted — enforcing the pin
+# through action left a red pane deaf for as long as it stayed red.
+v1	-200	turn.work	%0	claude	sidA
+v1	-190	ask.permission	%0	claude	sidA Approve this?
+v1	-20	turn.work	%0	claude	sidB

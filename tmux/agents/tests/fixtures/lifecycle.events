@@ -1,0 +1,7 @@
+# launch -> work -> unattended end becomes unseen; a second agent keeps
+# running; a third launched agent sits idle
+v1	-600	agent.launch	%0	zsh
+v1	-300	turn.work	%0	zsh
+v1	-20	turn.end	%0	zsh
+v1	-30	turn.work	%1	zsh
+v1	-500	agent.launch	%2	zsh

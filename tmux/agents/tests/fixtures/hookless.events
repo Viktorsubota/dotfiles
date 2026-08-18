@@ -1,0 +1,8 @@
+# hook-less kinds (agy) get their dialogs from the screen: %0 running but
+# event-silent with a dialog showing goes red via the silence probe; %1
+# ends its turn with a dialog still on screen and goes red instead of
+# unseen
+v1	-40	turn.work	%0	agy
+v1	-60	turn.work	%1	agy
+v1	-10	turn.end	%1	agy
+v1	0	tick	-	system

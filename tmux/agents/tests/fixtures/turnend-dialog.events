@@ -1,0 +1,6 @@
+# A turn cannot be over while a prompt is on the screen. %0's Stop lands
+# with an approval prompt still displayed — which happens for real when a
+# session's permission hooks stop firing — and must go dialog-class red,
+# not the calm yellow of a finished turn nobody has read.
+v1	-60	turn.work	%0	claude
+v1	-30	turn.end	%0	claude

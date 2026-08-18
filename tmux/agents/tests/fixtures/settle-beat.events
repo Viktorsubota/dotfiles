@@ -1,0 +1,10 @@
+# The settle beat: a red is armed when it appears and only rings once it
+# has survived a beat, so an auto-approved tool whose dialog vanishes
+# faster than a banner can draw stays silent.
+# %0 asks and the beat passes -> rings. %1 asks and the turn ends within
+# the beat -> silent. %2 asks on the final instant -> still pending, silent.
+v1	-5	ask.permission	%0	zsh
+v1	-5	ask.permission	%1	zsh
+v1	-4	turn.end	%1	zsh
+v1	0	ask.permission	%2	zsh
+v1	0	tick	-	system

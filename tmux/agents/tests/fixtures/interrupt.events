@@ -1,0 +1,8 @@
+# ESC fires no hook, so a running pane wearing the idle mark ended its
+# turn and nothing said so. %0 is silent past the window and gets ended;
+# %1 still spins and keeps running; %2 wears the mark but its turn is
+# seconds old, too fresh to call.
+v1	-60	turn.work	%0	zsh
+v1	-60	turn.work	%1	zsh
+v1	-5	turn.work	%2	zsh
+v1	0	tick	-	system

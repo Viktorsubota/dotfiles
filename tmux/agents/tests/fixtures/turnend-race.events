@@ -1,0 +1,7 @@
+# turn.end with nothing on screen falls through to the normal unseen
+# path and schedules a recheck ladder without crashing or misfiring red.
+# The ladder's real timing is a live-only behavior (see the manual live
+# test) — replay only proves the miss path stays safe.
+v1	-20	turn.work	%0	agy
+v1	-10	turn.end	%0	agy
+v1	0	tick	-	system

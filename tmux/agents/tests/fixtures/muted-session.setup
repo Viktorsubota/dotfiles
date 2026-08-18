@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# the whole session arrives muted from the settings store
+set -u
+mkdir -p "$XDG_STATE_HOME/tmux-agents"
+printf 't1\tmute\ton\n' > "$XDG_STATE_HOME/tmux-agents/settings.tsv"

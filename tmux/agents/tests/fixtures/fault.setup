@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# a fatal error sits on the stalled pane's screen
+set -u
+. "$(dirname "${BASH_SOURCE[0]}")/_helpers.sh"
+
+stage_screen %0 "echo 'API Error: rate limit reached'" 'rate limit reached'

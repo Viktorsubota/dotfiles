@@ -1,0 +1,21 @@
+== panes
+%0 state=idle ts=-60 prev=stop kind=zsh cls=quiet rank= mod= sid= msg=
+%1 state=unseen ts=-40 prev=stop kind=zsh cls=warn rank=2 mod= sid= msg=
+%2 state= ts= prev= kind= cls= rank= mod= sid= msg=
+== globals
+@agents_any 2
+@agents_n_action 0
+@agents_n_action_cur 0
+@agents_n_action_oth 0
+@agents_n_running 0
+@agents_n_running_cur 0
+@agents_n_running_oth 0
+@agents_n_stuck 0
+@agents_n_stuck_cur 0
+@agents_n_stuck_oth 0
+@agents_n_unseen 1
+@agents_n_unseen_cur 1
+@agents_n_unseen_oth 0
+== winsig
+@0 sig=yellow
+@1 sig=
