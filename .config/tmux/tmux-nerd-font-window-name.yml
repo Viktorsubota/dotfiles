@@ -1,0 +1,18 @@
+config:
+  # nf-cod-terminal
+  fallback-icon: ""
+
+icons:
+  # six-pointed star (plain unicode)
+  claude: "✶"
+  # nf-md-robot
+  codex: "󰚩"
+  aider: "󰚩"
+  cursor-agent: "󰚩"
+  # nf-cod-copilot
+  copilot: ""
+  # nf-md-terminal
+  opencode: "󰆍"
+  # four-pointed star (plain unicode)
+  gemini: "✦"
+  agy: "✦"
