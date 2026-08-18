@@ -1,0 +1,9 @@
+# seen once, seen forever: a turn that ended under the user's eyes
+# (%0, prev=stop) or a pane they focused (%1, prev=seen) must stay quiet
+# when the 60s idle nudge arrives after they walk away. A never-engaged
+# agent (%2, prev=launch) still escalates — the nudge is not disabled,
+# it just cannot re-flag what was already read.
+v1	-70	agent.launch	%2	claude
+v1	-10	ask.input	%0	claude	sidA Claude is waiting for your input
+v1	-9	ask.input	%1	claude	sidA Claude is waiting for your input
+v1	-8	ask.input	%2	claude	sidA Claude is waiting for your input

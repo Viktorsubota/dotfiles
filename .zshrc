@@ -198,6 +198,26 @@ fi
 # Go is brew-managed; defaults are fine (GOPATH=~/go, no GOROOT/GOPROXY overrides)
 export PATH=$PATH:$HOME/go/bin
 
+# Agent state tracking (tmux/agents/SPEC.md): wrappers mark the pane on
+# launch and always clean up on exit — even if the agent is kill -9'd
+if [[ -n "${TMUX_PANE:-}" ]]; then
+  _agent_wrap() {
+    local kind="$1"; shift
+    local s="${DOTFILES_DIR:-$HOME/dotfiles}/tmux/agents/agent-state.sh"
+    [[ -x "$s" ]] && "$s" launch "$kind"
+    command "$kind" "$@"
+    local rc=$?
+    [[ -x "$s" ]] && "$s" off "$kind"
+    return $rc
+  }
+  claude()   { _agent_wrap claude "$@" }
+  codex()    { _agent_wrap codex "$@" }
+  opencode() { _agent_wrap opencode "$@" }
+  gemini()   { _agent_wrap gemini "$@" }
+  aider()    { _agent_wrap aider "$@" }
+  agy()      { _agent_wrap agy "$@" }
+fi
+
 if command -v pyenv >/dev/null; then
   # Keep pyenv shims out of brew's PATH so `brew doctor` stays quiet
   alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'

@@ -1,0 +1,6 @@
+# user dismiss and the dialog-gone sensor both clear a red to idle,
+# stamping who cleared it in prev
+v1	-100	ask.permission	%0	zsh
+v1	-50	user.dismiss	%0	zsh
+v1	-90	ask.permission	%1	zsh
+v1	-40	sense.dialog_gone	%1	zsh

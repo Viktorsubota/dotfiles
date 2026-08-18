@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# %0 carries a name given in the agents view, and a full set of the other
+# pane options, so the reap can be checked for anything it leaves behind.
+set -u
+tmux set -p -t %0 @agent_name 'the-old-agent'
+tmux set -p -t %0 @agent_urgent 1

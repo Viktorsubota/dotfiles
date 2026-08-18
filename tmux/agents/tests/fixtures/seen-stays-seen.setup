@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# %0: turn ended while the user watched  -> idle/stop  (they saw it)
+# %1: they focused it to clear an unseen -> idle/seen  (they saw it)
+# the scratch server has no client, so seed these directly rather than
+# staging a real attended turn end
+set -u
+tmux set -p -t %0 @agent_state idle \; set -p -t %0 @agent_prev stop \; \
+     set -p -t %0 @agent_kind claude
+tmux set -p -t %1 @agent_state idle \; set -p -t %1 @agent_prev seen \; \
+     set -p -t %1 @agent_kind claude

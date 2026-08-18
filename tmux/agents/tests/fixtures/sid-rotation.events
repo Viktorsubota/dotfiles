@@ -1,0 +1,11 @@
+# A session id is not stable for the life of a pane: /clear, resume and
+# compaction each mint a new one. The pin must guard a turn in flight and
+# nothing more, or the pane goes deaf to its own agent forever.
+# sidA runs and finishes; sidB — the same agent after a compaction — must
+# be adopted, and a nested sid arriving mid-turn must still be dropped.
+v1	-200	agent.launch	%0	zsh	sidA
+v1	-190	turn.work	%0	zsh	sidA
+v1	-180	turn.end	%0	zsh	sidA
+v1	-100	turn.work	%0	zsh	sidB
+v1	-90	turn.work	%0	zsh	sidNested
+v1	-20	turn.end	%0	zsh	sidB

@@ -1,0 +1,4 @@
+# a stall with a fatal error on screen is blocked on the user: stuck
+# lands red (prev=fault) instead of the calm stale tier
+v1	-1000	turn.work	%0	zsh	sidA
+v1	0	tick	-	system

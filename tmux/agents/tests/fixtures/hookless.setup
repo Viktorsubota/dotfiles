@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# agy approval dialogs on both panes' screens, read from a file so the
+# marker never lands on the shell's redisplayed command line.
+set -u
+. "$(dirname "${BASH_SOURCE[0]}")/_helpers.sh"
+
+d="${XDG_STATE_HOME:?}/hookless-dialog.txt"
+stage_file "$d" <<'EOF'
+Waiting for approval: run ls
+EOF
+
+stage_screen %0 "cat '$d'" '^Waiting for approval' || exit 1
+stage_screen %1 "cat '$d'" '^Waiting for approval'

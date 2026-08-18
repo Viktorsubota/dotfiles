@@ -1,0 +1,6 @@
+# an exiting agent takes its modifiers with it — the next agent in the
+# pane starts unmarked
+v1	-100	turn.work	%0	zsh
+v1	-90	user.urgent	%0	zsh
+v1	-50	agent.exit	%0	zsh
+v1	-20	agent.launch	%0	zsh

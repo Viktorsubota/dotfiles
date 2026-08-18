@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# the layer is switched off in the settings store
+set -u
+mkdir -p "$XDG_STATE_HOME/tmux-agents"
+printf '*\tenabled\toff\n' > "$XDG_STATE_HOME/tmux-agents/settings.tsv"

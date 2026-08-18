@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# A real claude approval prompt, on screen when the turn ends.
+set -u
+. "$(dirname "${BASH_SOURCE[0]}")/_helpers.sh"
+d="${XDG_STATE_HOME:?}/turnend-dialog.txt"
+stage_file "$d" <<'EOF'
+This command requires approval
+Do you want to proceed?
+EOF
+stage_screen %0 "cat '$d'" 'Do you want to proceed'

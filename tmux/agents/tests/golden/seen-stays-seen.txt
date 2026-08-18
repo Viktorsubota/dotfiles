@@ -1,0 +1,21 @@
+== panes
+%0 state=idle ts= prev=stop kind=claude cls=quiet rank= mod= sid=sidA msg=
+%1 state=idle ts= prev=seen kind=claude cls=quiet rank= mod= sid=sidA msg=
+%2 state=action ts=-8 prev=waiting kind=claude cls=warn rank=2 mod= sid=sidA msg=Claude is waiting for your input
+== globals
+@agents_any 3
+@agents_n_action 0
+@agents_n_action_cur 0
+@agents_n_action_oth 0
+@agents_n_running 0
+@agents_n_running_cur 0
+@agents_n_running_oth 0
+@agents_n_stuck 0
+@agents_n_stuck_cur 0
+@agents_n_stuck_oth 0
+@agents_n_unseen 1
+@agents_n_unseen_cur 0
+@agents_n_unseen_oth 1
+== winsig
+@0 sig=
+@1 sig=yellow

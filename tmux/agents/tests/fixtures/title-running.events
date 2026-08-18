@@ -1,0 +1,9 @@
+# Hooks are the fast path, not the only one. A pane whose hooks died —
+# settings rewritten under a long-lived session — sits calm while visibly
+# generating, so a spinning title promotes it to running.
+# %0 idle + spinner -> running. %1 idle + idle mark -> stays idle.
+# %2 holds a dialog-class red: a repaint must never bury the user's prompt.
+v1	-300	agent.launch	%0	zsh
+v1	-300	agent.launch	%1	zsh
+v1	-300	ask.permission	%2	zsh
+v1	0	tick	-	system

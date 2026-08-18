@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Titles are the whole signal here, so they are set directly rather than
+# staged on screen: %0 wears Claude's idle mark (interrupted), %1 a
+# braille spinner frame (still generating), %2 the idle mark but its turn
+# is too fresh to judge.
+set -u
+
+tmux select-pane -t %0 -T '✳ interrupted-turn'
+tmux select-pane -t %1 -T '⠐ still-generating'
+tmux select-pane -t %2 -T '✳ just-started'

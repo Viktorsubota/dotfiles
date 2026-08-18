@@ -1,0 +1,10 @@
+# modifiers through the bus: exclusive (setting one clears the others),
+# second press clears, urgent reddens the unseen it lands on
+v1	-100	turn.work	%0	zsh
+v1	-90	user.urgent	%0	zsh
+v1	-80	user.mute	%0	zsh
+v1	-70	turn.work	%1	zsh
+v1	-60	user.disable	%1	zsh
+v1	-50	user.disable	%1	zsh
+v1	-40	turn.end	%2	zsh
+v1	-30	user.urgent	%2	zsh

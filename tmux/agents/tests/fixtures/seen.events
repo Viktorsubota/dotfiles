@@ -1,0 +1,8 @@
+# focusing the pane clears the yellow story: unseen -> idle (ts keeps the
+# turn-end stamp), and a waiting-class await -> idle the same way
+v1	-120	turn.work	%0	zsh
+v1	-60	turn.end	%0	zsh
+v1	-30	focus.enter	%0	zsh
+v1	-100	agent.launch	%1	zsh
+v1	-50	ask.input	%1	zsh
+v1	-20	focus.enter	%1	zsh

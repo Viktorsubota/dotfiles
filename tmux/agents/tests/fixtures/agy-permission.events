@@ -1,0 +1,4 @@
+# agy announces no dialogs, so a running pane gone quiet gets its screen
+# read. The permission prompt must go dialog-class red like any other.
+v1	-60	turn.work	%0	agy
+v1	0	tick	-	system

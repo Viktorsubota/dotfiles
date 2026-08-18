@@ -1,0 +1,13 @@
+# a burst of ask.permission while already red (subagent tool calls, or
+# PermissionRequest+Notification both firing for one dialog) must arm the
+# settle timer once and ring once — not push it out of reach forever
+v1	-10	turn.work	%0	claude	sidA
+v1	-9	ask.permission	%0	claude	sidA first ask
+v1	-8	ask.permission	%0	claude	sidA repeat 1
+v1	-7	ask.permission	%0	claude	sidA repeat 2
+v1	-6	ask.permission	%0	claude	sidA repeat 3
+v1	-5	ask.permission	%0	claude	sidA repeat 4
+v1	-4	ask.permission	%0	claude	sidA repeat 5
+v1	-3	ask.permission	%0	claude	sidA repeat 6
+v1	-2	ask.permission	%0	claude	sidA repeat 7
+v1	-1	ask.permission	%0	claude	sidA repeat 8

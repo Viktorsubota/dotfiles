@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# the title is the whole signal, so it is set directly
+set -u
+tmux select-pane -t %0 -T '⠹ generating-without-hooks'
+tmux select-pane -t %1 -T '✳ genuinely-idle'
+tmux select-pane -t %2 -T '⠹ spinning-but-red'

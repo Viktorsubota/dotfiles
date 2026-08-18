@@ -1,0 +1,8 @@
+# a pane is pinned to its first agent's session id — a nested headless
+# instance (different sid, same pane) cannot flap the state; the message
+# travels with the ask
+v1	-100	agent.launch	%0	zsh	sidA
+v1	-90	turn.work	%0	zsh	sidA
+v1	-50	turn.work	%0	zsh	sidB
+v1	-40	turn.end	%0	zsh	sidB
+v1	-30	ask.permission	%0	zsh	sidA May I edit main.py?

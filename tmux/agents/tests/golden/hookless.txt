@@ -1,0 +1,21 @@
+== panes
+%0 state=action ts=0 prev=action kind=agy cls=alert rank=1 mod= sid= msg=Waiting for approval: run ls
+%1 state=action ts=-10 prev=action kind=agy cls=alert rank=1 mod= sid= msg=Waiting for approval: run ls
+%2 state= ts= prev= kind= cls= rank= mod= sid= msg=
+== globals
+@agents_any 2
+@agents_n_action 2
+@agents_n_action_cur 0
+@agents_n_action_oth 2
+@agents_n_running 0
+@agents_n_running_cur 0
+@agents_n_running_oth 0
+@agents_n_stuck 0
+@agents_n_stuck_cur 0
+@agents_n_stuck_oth 0
+@agents_n_unseen 0
+@agents_n_unseen_cur 0
+@agents_n_unseen_oth 0
+== winsig
+@0 sig=red
+@1 sig=

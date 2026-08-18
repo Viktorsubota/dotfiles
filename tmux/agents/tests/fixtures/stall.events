@@ -1,0 +1,6 @@
+# running silent past the stall window becomes stuck on the next pass;
+# an urgent one goes full red — pill, tab, band 0
+v1	-1000	turn.work	%0	zsh
+v1	-1100	turn.work	%1	zsh
+v1	-1050	user.urgent	%1	zsh
+v1	0	tick	-	system

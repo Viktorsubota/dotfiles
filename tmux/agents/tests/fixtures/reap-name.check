@@ -1,0 +1,5 @@
+# nothing the layer writes may survive the exit
+for o in name urgent state ts prev kind class rank mod sid msg; do
+    v="$(tmux show -p -t %0 -v "@agent_$o" 2>/dev/null)"
+    [ -z "$v" ] || echo "LEAKED @agent_$o=$v"
+done

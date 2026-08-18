@@ -1,0 +1,4 @@
+# a session-level mute yellows the await; the mute toggle is tier-aware —
+# it unmutes the session, and the await turns properly red
+v1	-100	ask.permission	%0	zsh
+v1	-40	user.mute	%0	zsh

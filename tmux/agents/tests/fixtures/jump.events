@@ -1,0 +1,8 @@
+# band order for the always-jump: await beats unseen beats running.
+# the action sits on %1 — the server's active pane is %0, so the dry run
+# exercises a real jump, not the standing-on-top no-op
+v1	-300	turn.work	%1	zsh
+v1	-200	ask.permission	%1	zsh
+v1	-100	turn.work	%0	zsh
+v1	-50	turn.end	%0	zsh
+v1	-400	turn.work	%2	zsh

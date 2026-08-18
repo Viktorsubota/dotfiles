@@ -1,0 +1,10 @@
+# The reaper's three verdicts, in one pass. %0's kind is alive under the
+# pane, so it stays. %1 declares 'ghost' — a kind the rig never starts, so
+# no process matches and the agent is judged gone. %2 is also a ghost but
+# its transition is seconds old: a launch wrapper emits before the CLI has
+# exec'd, so a fresh state is proof of life and must survive.
+v1	-120	agent.launch	%0	zsh
+v1	-110	turn.work	%0	zsh
+v1	-120	agent.launch	%1	ghost
+v1	-110	turn.work	%1	ghost
+v1	-2	turn.work	%2	ghost

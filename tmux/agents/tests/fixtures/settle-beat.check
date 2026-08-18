@@ -1,0 +1,3 @@
+# which panes actually rang, in order
+d="${XDG_STATE_HOME}/tmux-agents/$(printf '%s' "${TMUX%%,*}" | sed 's|/|%|g')"
+echo "rang: $(tr '\n' ' ' < "$d/alerts.log" 2>/dev/null)"

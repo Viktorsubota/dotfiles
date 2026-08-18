@@ -1,0 +1,8 @@
+# urgent unseen keeps the window red; muted await tallies as unseen;
+# disabled keeps its pane facts but vanishes from counts and signals
+v1	-300	turn.work	%0	zsh
+v1	-60	turn.end	%0	zsh
+v1	-40	turn.work	%1	zsh
+v1	-30	ask.permission	%1	zsh
+v1	-20	turn.work	%2	zsh
+v1	-10	ask.permission	%2	zsh

@@ -1,0 +1,9 @@
+# a probe clears a dialog-class red whose screen shows no dialog markers,
+# keeps one whose markers are still on screen, and leaves waiting-class
+# reds alone (markerless by nature)
+v1	-100	ask.permission	%0	claude
+v1	-40	sense.probe	%0	claude
+v1	-90	ask.input	%1	claude
+v1	-30	sense.probe	%1	claude
+v1	-80	ask.permission	%2	claude
+v1	-20	sense.probe	%2	claude

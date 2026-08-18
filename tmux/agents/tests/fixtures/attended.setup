@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# attach a control-mode client so session_attached=1 — the scratch server
+# is otherwise clientless and every attended branch would be dead code to
+# the rig. %0 is window 0's active pane. Control mode exits on stdin EOF,
+# so a sleep holds the pipe open; the client dies with the server at
+# teardown and the sleep expires on its own shortly after.
+set -u
+sock="${TMUX%%,*}"
+# the whole pipeline detaches from our fds — a leaked stderr would hold
+# the suite's output pipe open for the sleep's full lifetime
+( sleep 60 | tmux -S "$sock" -C attach -t t1 ) >/dev/null 2>&1 &
+for _ in $(seq 1 50); do
+    [ "$(tmux -S "$sock" display -p -t t1 '#{session_attached}' 2>/dev/null)" = 1 ] && exit 0
+    sleep 0.1
+done
+exit 1

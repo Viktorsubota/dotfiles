@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# the modifier bit itself must be gone, not just the derived mod
+set -u
+printf 'urgent-bit=%s\n' "$(tmux display -p -t %0 '#{@agent_urgent}')"

@@ -1,0 +1,5 @@
+# An agent's exit must take every mark with it. A name left on the pane is
+# inherited by whatever agent lands there next, wearing a dead one's label.
+v1	-100	agent.launch	%0	zsh
+v1	-90	turn.work	%0	zsh
+v1	-10	agent.exit	%0	zsh

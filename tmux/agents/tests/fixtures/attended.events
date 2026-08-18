@@ -1,0 +1,8 @@
+# with a client attached (see .setup), the active pane counts as
+# attended: its turn end lands idle (not unseen) and an idle-wait
+# notification is dropped as noise; the inactive pane still goes unseen
+v1	-100	turn.work	%0	zsh
+v1	-60	turn.end	%0	zsh
+v1	-50	ask.input	%0	zsh
+v1	-90	turn.work	%1	zsh
+v1	-40	turn.end	%1	zsh
