@@ -1,0 +1,7 @@
+# kind <TAB> grep -E pattern matching that agent's approval-dialog screen.
+# Read by agentsd at boot: clears dialog-class reds when the pattern
+# leaves the screen, and paints hook-less kinds (agy, codex) red when it
+# appears after event-silence.
+claude	Do you want|Would you like|❯ 1
+agy	Requesting permission for|Waiting for approval|Do you want to proceed|Allow this|approve.*deny|[❯>] [0-9]+\. (Yes|Allow)|Navigate.*(Select|Amend)|Question [0-9]+/[0-9]+:
+codex	Allow command|approval requested|press y to approve
